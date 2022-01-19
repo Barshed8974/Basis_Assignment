@@ -1,8 +1,9 @@
-package vp.ali.basisassignment
+package vp.ali.basisassignment.api_Call
 
 import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
+import vp.ali.basisassignment.modelClass.DataItem
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -13,7 +14,8 @@ class ApiCall {
     fun getList(): ArrayList<DataItem>? {
         var urlConnection: HttpURLConnection? = null
         try {
-            val url = URL("https://gist.githubusercontent.com/anishbajpai014/d482191cb4fff429333c5ec64b38c197/raw/b11f56c3177a9ddc6649288c80a004e7df41e3b9/HiringTask.json")
+            val url = URL("https://gist.githubusercontent.com/anishbajpai014/" +
+                    "d482191cb4fff429333c5ec64b38c197/raw/b11f56c3177a9ddc6649288c80a004e7df41e3b9/HiringTask.json")
             urlConnection = url.openConnection() as HttpURLConnection
             val inputStream = urlConnection.inputStream
             val inputStreamReader = InputStreamReader(inputStream)

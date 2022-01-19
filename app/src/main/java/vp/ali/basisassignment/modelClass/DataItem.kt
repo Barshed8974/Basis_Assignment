@@ -1,4 +1,4 @@
-package vp.ali.basisassignment
+package vp.ali.basisassignment.modelClass
 
 import com.google.gson.annotations.SerializedName
 

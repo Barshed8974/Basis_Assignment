@@ -3,45 +3,47 @@ package vp.ali.basisassignment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.CardStackListener
+import androidx.collection.CircularArray
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
-import org.json.JSONException
-import org.json.JSONObject
+import vp.ali.basisassignment.api_Call.ApiCall
+import vp.ali.basisassignment.cardSwipeAdapte_Holder.SwipeAdapter
+import vp.ali.basisassignment.modelClass.DataItem
+
+
 class MainActivity : AppCompatActivity() {
-    var list=ArrayList<DataItem>()
+    private var list=CircularArray<DataItem>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val api=ApiCall()
+        val api= ApiCall()
         CoroutineScope(Dispatchers.IO).launch {
             Log.d("Ali",Thread.currentThread().name)
             api.getList()?.forEach {
-                list.addAll(listOf(it))
+                list.addLast(it)
             }
-            printList(list)
             withContext(Dispatchers.Main)
             {
-                cardSwipe.adapter=SwipeAdapter(this@MainActivity,list)
-                val cardStackLayoutManager=CardStackLayoutManager(this@MainActivity, CardStackListener.DEFAULT)
-                cardStackLayoutManager.setVisibleCount(3)
-                cardSwipe.layoutManager=cardStackLayoutManager
+                cardSwipe.adapter= SwipeAdapter(this@MainActivity,list)
+                progress_circular.max=list.size()
             }
         }
-
-    }
-    fun printList(list:ArrayList<DataItem>)
-    {
-        list.forEach {
-            Log.d("List","${it.text} ")
+        cardSwipe.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                progress_circular.progress=position+1
+                Log.d("poss",(position+1).toString())
+                text.text=(position+1).toString()
+            }
+        })
+        progress_circular.setOnClickListener {
+            if (list.size()>0)
+                cardSwipe.adapter= SwipeAdapter(this@MainActivity,list)
         }
     }
 }
