@@ -2,18 +2,19 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="10dp"
-    app:cardCornerRadius="6dp"
-    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <TextView
+            android:gravity="center"
             android:id="@+id/tvText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/teal_200"
+            android:background="@color/Yellow"
             android:text="kfjsksdl"
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:textStyle="bold|italic"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             />
 </androidx.cardview.widget.CardView>

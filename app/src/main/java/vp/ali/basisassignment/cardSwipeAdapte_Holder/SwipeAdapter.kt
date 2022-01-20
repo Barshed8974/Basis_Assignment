@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import vp.ali.basisassignment.modelClass.DataItem
 import vp.ali.basisassignment.R
 
-class SwipeAdapter(val context: Context,val list:CircularArray<DataItem>):RecyclerView.Adapter<SwipeHolder> (){
+class SwipeAdapter(val context: Context,val list:ArrayList<DataItem>):RecyclerView.Adapter<SwipeHolder> (){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwipeHolder {
         val view=LayoutInflater.from(context).inflate(R.layout.item,parent,false)
         return SwipeHolder(view)
@@ -19,6 +19,6 @@ class SwipeAdapter(val context: Context,val list:CircularArray<DataItem>):Recycl
     }
 
     override fun getItemCount(): Int {
-        return list.size()
+        return list.size
     }
 }

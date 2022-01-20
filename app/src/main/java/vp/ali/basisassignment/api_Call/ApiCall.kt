@@ -9,6 +9,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class ApiCall {
+
+    //list to store and return data
     private val list=ArrayList<DataItem>()
 
     fun getList(): ArrayList<DataItem>? {
@@ -19,35 +21,44 @@ class ApiCall {
             urlConnection = url.openConnection() as HttpURLConnection
             val inputStream = urlConnection.inputStream
             val inputStreamReader = InputStreamReader(inputStream)
+
+            //reading data from inputStreamReader
             var data = inputStreamReader.read()
             val stringBuffer = StringBuffer()
+
+            //appending data in stringBuffer
             while (data != -1) {
                 val responseChar = data.toChar()
                 stringBuffer.append(responseChar)
                 data = inputStreamReader.read()
             }
+
             buildResponseModel(stringBuffer)
             return list
         } catch (e: Exception) {
             e.printStackTrace()
             return null
         } finally {
+            //disconnecting urlConnection
             urlConnection?.disconnect()
         }
     }
     private fun buildResponseModel(stringBuffer: StringBuffer) {
         stringBuffer.deleteCharAt(0)
         try {
+            //creating JSON object
             val jsonObject = JSONObject(stringBuffer.toString())
             val array=jsonObject.getJSONArray("data")
             for (i in 0 until array.length()) {
                 val jsonObject1= JSONObject(array[i].toString())
                 val id=jsonObject1.get("id")
                 val text=jsonObject1.get("text")
+
+                //adding data in list
                 list.add(DataItem(id.toString(),text.toString()))
             }
         } catch (e: JSONException) {
-            Log.d("Hello","$e")
+            Log.d("buildResponseModel","$e")
         }
     }
 }
