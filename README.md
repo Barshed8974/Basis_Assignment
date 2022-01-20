@@ -43,12 +43,16 @@ Gradle
 
     Install the debug APK on your device ./gradlew installDebug
     Start the APK: 
- 
- Splash Screen
- 
- <img src="https://github.com/Kingbond470/First-Cry/blob/main/FirstCryImage/splash_screen.gif" width="280" />
- 
+Control
 
+    swipe right     -> next page
+    swipe left      -> previous page
+    tap on progress -> restart the pages 
+ 
+ Sample Card
+ 
+ <img src="Screenshot_2022-01-20-08-44-05-229_vp.ali.basisassignment(1).jpg" width="280"  />
+ 
 
 Technologies
 
